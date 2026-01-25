@@ -353,15 +353,23 @@ class MyController {
 | `hxHeaders(json)` | `hx-headers` | Add headers to request |
 | `hxInclude(selector)` | `hx-include` | Include element values |
 | `hxParams(value)` | `hx-params` | Filter parameters |
+| `hxParamsExclude(...)` | `hx-params` | Exclude specific parameters |
+| `hxParamsInclude(...)` | `hx-params` | Include only specific parameters |
+| `hxRequest(attrs)` | `hx-request` | Configure request (timeout, credentials) |
+| `hxEncoding()` | `hx-encoding` | Set multipart/form-data encoding |
 | `hxSync(selector, modifier)` | `hx-sync` | Synchronize requests |
 | `hxPushUrl(...)` | `hx-push-url` | Push URL to history |
 | `hxReplaceUrl(...)` | `hx-replace-url` | Replace URL in history |
+| `hxHistory()` | `hx-history` | Disable history snapshot |
+| `hxHistoryElt()` | `hx-history-elt` | Mark element for history snapshot |
 | `hxOn(event, code)` | `hx-on:*` | Event handler |
 | `hxIndicator(selector)` | `hx-indicator` | Loading indicator |
 | `hxDisabled(selector)` | `hx-disabled-elt` | Disable during request |
 | `hxConfirm(text)` | `hx-confirm` | Confirmation dialog |
 | `hxPrompt(text)` | `hx-prompt` | Prompt dialog |
 | `hxBoost(enabled)` | `hx-boost` | Boost links/forms |
+| `hxDisable()` | `hx-disable` | Disable htmx processing |
+| `hxDisinherit(attrs)` | `hx-disinherit` | Control attribute inheritance |
 | `hxExt(extension)` | `hx-ext` | Enable extension |
 | `hxPreserve()` | `hx-preserve` | Preserve during swap |
 | `hxValidate()` | `hx-validate` | HTML5 validation |
@@ -375,8 +383,12 @@ class MyController {
 | `hxApplyDuringRequest(class)` | Add CSS class during request |
 | `buildHTMLString { }` | Build HTML string with kotlinx-html |
 | `embedSvg(path)` | Embed SVG from resources |
+| `SvgLoader.loadSvg(path)` | Load SVG content (cached) |
+| `SvgLoader.clearCache()` | Clear SVG cache |
 | `addJs(code)` | Add inline JavaScript |
+| `addDeferredJs(code)` | Add deferred inline JavaScript |
 | `onEvent(event, code)` | Add JS event handler |
+| `PageSecurityContext.scriptNonce` | Set CSP nonce for scripts |
 
 ## Requirements
 
