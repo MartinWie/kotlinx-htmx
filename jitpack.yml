@@ -1,0 +1,8 @@
+# This project has moved to Maven Central
+# Use: implementation("io.github.martinwie:kotlinx-htmx:0.1.0")
+#
+# Intentionally fail JitPack builds
+install:
+  - echo "This project is no longer available on JitPack. Please use Maven Central instead."
+  - echo "implementation(\"io.github.martinwie:kotlinx-htmx\")"
+  - exit 1

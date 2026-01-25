@@ -1,8 +1,8 @@
 # kotlinx-htmx
 
-[![](https://jitpack.io/v/MartinWie/kotlinx-htmx.svg)](https://jitpack.io/#MartinWie/kotlinx-htmx)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.martinwie/kotlinx-htmx)](https://central.sonatype.com/artifact/io.github.martinwie/kotlinx-htmx)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Kotlin](https://img.shields.io/badge/kotlin-2.1.20-blue.svg?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/kotlin-2.2.0-blue.svg?logo=kotlin)](http://kotlinlang.org)
 
 Type-safe [HTMX](https://htmx.org/) attributes and utilities for [kotlinx-html](https://github.com/Kotlin/kotlinx.html).
 
@@ -21,43 +21,26 @@ Write HTMX-powered HTML in Kotlin with full IDE support, documentation, and comp
 ### Gradle (Kotlin DSL)
 
 ```kotlin
-repositories {
-    mavenCentral()
-    maven("https://jitpack.io")
-}
-
 dependencies {
-    implementation("com.github.MartinWie:kotlinx-htmx:v0.2.0")
+    implementation("io.github.martinwie:kotlinx-htmx:0.1.0")
 }
 ```
 
 ### Gradle (Groovy)
 
 ```groovy
-repositories {
-    mavenCentral()
-    maven { url 'https://jitpack.io' }
-}
-
 dependencies {
-    implementation 'com.github.MartinWie:kotlinx-htmx:v0.2.0'
+    implementation 'io.github.martinwie:kotlinx-htmx:0.1.0'
 }
 ```
 
 ### Maven
 
 ```xml
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
-
 <dependency>
-    <groupId>com.github.MartinWie</groupId>
+    <groupId>io.github.martinwie</groupId>
     <artifactId>kotlinx-htmx</artifactId>
-    <version>v0.2.0</version>
+    <version>0.1.0</version>
 </dependency>
 ```
 
