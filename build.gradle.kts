@@ -59,8 +59,8 @@ publishing {
 
                 developers {
                     developer {
-                        id.set("martinwie")
-                        name.set("Martin Wiechmann")
+                        id.set("MartinWie")
+                        name.set("MartinWie")
                     }
                 }
 
