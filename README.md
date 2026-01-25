@@ -27,7 +27,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.MartinWie:kotlinx-htmx:0.1.0")
+    implementation("com.github.MartinWie:kotlinx-htmx:v0.2.0")
 }
 ```
 
@@ -40,7 +40,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.MartinWie:kotlinx-htmx:0.1.0'
+    implementation 'com.github.MartinWie:kotlinx-htmx:v0.2.0'
 }
 ```
 
@@ -57,7 +57,7 @@ dependencies {
 <dependency>
     <groupId>com.github.MartinWie</groupId>
     <artifactId>kotlinx-htmx</artifactId>
-    <version>0.1.0</version>
+    <version>v0.2.0</version>
 </dependency>
 ```
 
