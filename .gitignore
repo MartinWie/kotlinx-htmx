@@ -23,6 +23,9 @@ Thumbs.db
 # Local Maven repository
 local-maven-repo/
 
+# Serena
+.serena/
+
 # Exclude jars except gradle wrapper
 *.jar
 !gradle/wrapper/gradle-wrapper.jar

@@ -1,11 +1,10 @@
 plugins {
     kotlin("jvm") version "2.1.20"
     `maven-publish`
+    signing
 }
 
-// JitPack uses the GitHub repo name as the group
-// Users will add: implementation("com.github.MartinWie:kotlinx-htmx:TAG")
-group = "com.github.MartinWie"
+group = "io.github.martinwie"
 version = "0.1.0"
 
 repositories {
@@ -35,12 +34,10 @@ java {
     withJavadocJar()
 }
 
-// Publishing configuration for JitPack compatibility
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            // JitPack expects these coordinates
-            groupId = "com.github.MartinWie"
+            groupId = "io.github.martinwie"
             artifactId = "kotlinx-htmx"
 
             from(components["java"])
@@ -60,7 +57,8 @@ publishing {
                 developers {
                     developer {
                         id.set("MartinWie")
-                        name.set("MartinWie")
+                        name.set("Martin Wiechmann")
+                        email.set("donotsuspend@googlegroups.com")
                     }
                 }
 
@@ -72,4 +70,20 @@ publishing {
             }
         }
     }
+
+    repositories {
+        maven {
+            name = "OSSRH"
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = findProperty("ossrhUsername") as String?
+                password = findProperty("ossrhPassword") as String?
+            }
+        }
+    }
+}
+
+signing {
+    useGpgCmd()
+    sign(publishing.publications["maven"])
 }
