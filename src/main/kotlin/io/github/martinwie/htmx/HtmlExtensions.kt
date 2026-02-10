@@ -129,32 +129,81 @@ fun HTMLTag.onEvent(
 }
 
 /**
- * Thread-local storage for page security context.
+ * Request-scoped storage for page security context (CSP nonce).
  *
- * This allows setting a CSP nonce for script tags that will be automatically
- * applied when using [addJs].
+ * The nonce set here is automatically applied to `<script>` tags generated
+ * by [addJs] and [addDeferredJs].
  *
- * Example usage:
+ * ### Recommended usage — scoped helper
+ *
+ * The safest way to use the nonce is via the [withNonce] helper, which
+ * guarantees cleanup even when an exception is thrown:
+ *
  * ```kotlin
- * // In your request handler
- * PageSecurityContext.scriptNonce = generateNonce()
- * try {
- *     // Render HTML - scripts will automatically include the nonce
- * } finally {
- *     PageSecurityContext.scriptNonce = null
+ * val html = PageSecurityContext.withNonce(myNonce) {
+ *     buildHTMLString {
+ *         addJs("console.log('secure!')")
+ *     }
  * }
  * ```
+ *
+ * ### Coroutine safety
+ *
+ * Internally the nonce is stored in a [ThreadLocal]. This is safe as long as
+ * the [withNonce] block (or the manual set/get) does **not** suspend across
+ * dispatcher boundaries.
+ *
+ * If you need to access the nonce inside a suspending block that may change
+ * threads, propagate the ThreadLocal with
+ * `kotlinx-coroutines`' `ThreadLocal.asContextElement()`:
+ *
+ * ```kotlin
+ * import kotlinx.coroutines.asContextElement
+ * import kotlinx.coroutines.withContext
+ *
+ * withContext(PageSecurityContext.nonceThreadLocal.asContextElement(nonce)) {
+ *     // scriptNonce is now available on any dispatcher thread
+ * }
+ * ```
+ *
+ * The [nonceThreadLocal] is intentionally exposed as public for this purpose.
  */
 object PageSecurityContext {
-    private val nonceThreadLocal = ThreadLocal<String?>()
+    /**
+     * The underlying [ThreadLocal] that holds the nonce value.
+     *
+     * Exposed so that coroutine-based frameworks can propagate it via
+     * `ThreadLocal.asContextElement()` from `kotlinx-coroutines`.
+     */
+    val nonceThreadLocal = ThreadLocal<String?>()
 
     /**
      * The CSP nonce to be applied to script tags.
-     * Set this before rendering HTML if you're using Content Security Policy.
+     * Prefer using [withNonce] over setting this property directly.
      */
     var scriptNonce: String?
         get() = nonceThreadLocal.get()
         set(value) = nonceThreadLocal.set(value)
+
+    /**
+     * Executes [block] with [scriptNonce] set to [nonce], then clears it.
+     *
+     * The nonce is guaranteed to be cleared in a `finally` block,
+     * even if [block] throws an exception.
+     *
+     * @param nonce The CSP nonce value to set for the duration of [block].
+     * @param block The code to execute with the nonce active. Must be non-suspending
+     *              to remain thread-safe (see class-level docs for coroutine usage).
+     * @return The result of [block].
+     */
+    fun <T> withNonce(nonce: String, block: () -> T): T {
+        scriptNonce = nonce
+        try {
+            return block()
+        } finally {
+            scriptNonce = null
+        }
+    }
 }
 
 /**
